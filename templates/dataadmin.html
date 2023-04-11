@@ -1,0 +1,257 @@
+{% include 'header.html' %}
+
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'dist/css/adminlte.min.css') }}">
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Data Admin</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a data-toggle="modal" data-target="#tambahdataadmin" href="tambahdataadmin">Tambah</a></li>
+              <li class="breadcrumb-item active"> Data Admin</li>
+                            <div class="modal fade" id="tambahdataadmin">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h4 class="modal-title">Tambah Data Admin</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <form action="{{url_for('tambahdataadmin')}}" method="POST">
+                                  <div class="modal-body">
+                                      <div class="card-body">
+                                        <div class="form-group">
+                                          <label for="username">Username</label>
+                                          <input type="username" class="form-control" name="username" id="username" placeholder="Username" required="">
+                                        </div>
+                                        <div class="form-group">
+                                          <label for="password">Password</label>
+                                          <input type="password" class="form-control" name="password" id="password" placeholder="Password" required="">
+                                        </div>
+                                        <div class="form-group">
+                                          <label for="username">Nama</label>
+                                          <input type="name" class="form-control" name="nama" id="nama" placeholder="Nama" required="">
+                                        </div>
+                                        <div class="form-group">
+                                          <label for="username">Email</label>
+                                          <input type="email" class="form-control" name="email" id="email" placeholder="Email" required="">
+                                        </div>
+                                      </div>
+                                      <!-- /.card-body -->
+                                  </div>
+                                  <div class="modal-footer justify-content-between">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Simpan</button>
+                                  </div>
+                                </form>
+                                </div>
+                                <!-- /.modal-content -->
+                              </div>
+                              <!-- /.modal-dialog -->
+                            </div>
+                            <!-- /.modal -->
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+            
+          <div class="card">
+              <!--<div class="card-header">
+                <h3 class="card-title">DataTable with default features</h3>
+              </div>-->
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="example1" class="table table-bordered table-striped">
+                  <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Username</th>
+                    <th>Nama</th>
+                    <th>Email</th>
+                    <th>Aksi</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {% for dt in data %}
+                  <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ dt.username }}</td>
+                    <td>{{ dt.nama }}</td>
+                    <td>{{ dt.email }}</td>
+                    <td>
+                      <a class="btn btn-info btn-sm" data-toggle="modal" data-target="#editdataadmin{{dt.idAdmin}}">
+                        <i class="fas fa-pencil-alt"></i></a>
+                        <!-- <button class="btn btn-block btn-primary" data-toggle="modal" data-target="#editdataadmin{{dt.idAdmin}}">Edit</button> -->
+                                <div class="modal fade" id="editdataadmin{{dt.idAdmin}}">
+                                  <div class="modal-dialog">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h4 class="modal-title">Edit Data Admin</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                      </div>
+                                      <form action="/editdataadmin/{{dt.idAdmin}}" method="POST" >
+                                      <div class="modal-body">
+                                          <div class="card-body">
+                                            <div class="form-group">
+                                              <label for="username">Username</label>
+                                              <input type="username" class="form-control" name="username1" id="username1" value="{{ dt.username }}" placeholder="Username" required="">
+                                            </div>
+                                            <div class="form-group">
+                                              <label for="password">Password</label>
+                                              <input type="password" class="form-control" name="password1" id="password1" placeholder="Password" required="">
+                                            </div>
+                                            <div class="form-group">
+                                              <label for="username">Nama</label>
+                                              <input type="name" class="form-control" name="nama1" id="nama1" value="{{ dt.nama }}" placeholder="Nama" required="">
+                                            </div>
+                                            <div class="form-group">
+                                              <label for="username">Email</label>
+                                              <input type="email" class="form-control" name="email1" id="email1" value="{{ dt.email }}" placeholder="Email" required="">
+                                            </div>
+                                          </div>
+                                          <!-- /.card-body -->
+                                      </div>
+                                      <div class="modal-footer justify-content-between">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                      </div>
+                                    </form>
+                                    </div>
+                                    <!-- /.modal-content -->
+                                  </div>
+                                  <!-- /.modal-dialog -->
+                                </div>
+                                <!-- /.modal -->
+                      <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#hapusdataadmin{{ dt.idAdmin }}">
+                        <i class="fas fa-trash"></i></a>
+                        <!-- <button class="btn btn-block btn-danger" data-toggle="modal" data-target="#hapusdataadmin{{ dt.idAdmin }}">Hapus</button> -->
+                                <div class="modal fade" id="hapusdataadmin{{ dt.idAdmin }}">
+                                  <div class="modal-dialog">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h4 class="modal-title">Hapus Data Admin</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                      </div>
+                                      <div class="modal-body">
+                                        <p>Apakah Anda ingin menghapus data ini?</p>
+                                      </div>
+                                      <div class="modal-footer justify-content-between">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <a href="/hapusdataadmin/{{ dt.idAdmin }}" class="btn btn-danger">Hapus</a>
+                                      </div>
+                                    </div>
+                                    <!-- /.modal-content -->
+                                  </div>
+                                  <!-- /.modal-dialog -->
+                                </div>
+                                <!-- /.modal -->
+                    </td>
+                  </tr>
+                  {% endfor %}
+                  </tbody>
+                  <tfoot>
+                  <tr>
+                    <th>#</th>
+                    <th>Username</th>
+                    <th>Nama</th>
+                    <th>Email</th>
+                    <th>Aksi</th>
+                  </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+{% include 'footer.html' %}
+<!-- DataTables  & Plugins -->
+<script src="{{ url_for('static', filename = 'plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ url_for('static', filename = 'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ url_for('static', filename = 'plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ url_for('static', filename = 'plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+<script src="{{ url_for('static', filename = 'plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ url_for('static', filename = 'plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+<script src="{{ url_for('static', filename = 'plugins/jszip/jszip.min.js') }}"></script>
+<script src="{{ url_for('static', filename = 'plugins/pdfmake/pdfmake.min.js') }}"></script>
+<script src="{{ url_for('static', filename = 'plugins/pdfmake/vfs_fonts.js') }}"></script>
+<script src="{{ url_for('static', filename = 'plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+<script src="{{ url_for('static', filename = 'plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+<script src="{{ url_for('static', filename = 'plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+
+<!-- Page specific script -->
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      buttons: [
+            {
+                extend: 'copyHtml5',
+                exportOptions: {
+                  columns: [ 0, 1, 2, 3 ]
+                }
+            },
+            {
+                extend: 'csvHtml5',
+                exportOptions: {
+                  columns: [ 0, 1, 2, 3 ]
+                }
+            },
+            {
+                extend: 'excelHtml5',
+                exportOptions: {
+                  columns: [ 0, 1, 2, 3 ]
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                exportOptions: {
+                    columns: [ 0, 1, 2, 3 ]
+                }
+            },
+            {
+                extend: 'copyHtml5',
+                exportOptions: {
+                  columns: [ 0, 1, 2, 3 ]
+                }
+            },
+            'colvis'
+        ]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>

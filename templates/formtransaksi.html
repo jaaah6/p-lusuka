@@ -1,0 +1,104 @@
+{% include 'header.html' %}
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Form Transaksi</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+              <li class="breadcrumb-item active">Form Transaksi</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+
+        <div class="card card-primary">
+          <div class="card-header bg-danger">
+            <h3 class="card-title">Petunjuk Tata Cara Mengatur File Excel</h3>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body">
+            <p>1. Lakukan export/unduh data penjualan E-Commerce</p>
+            <p>
+              2. Lakukan pengubahan data pada data penjualan E-Commerce dengan menyisakan kolom No Pesanan, Status Pesanan, Alasan Pembatalan, Status Pembatalan, No Resi, Opsi Pengiriman, Antar ke counter/pick-up, Waktu Pengiriman Diatur, Waktu Pesanan Dibuat, Waktu Pembayaran Dilakukan, Nama Produk, Nama Variasi, Harga Setelah Diskon, Jumlah, Total Harga Produk, Berat Produk, Perkiraan Ongkos Kirim, Username Pembeli, Nama Penerima, No Telepon, Alamat Pengiriman, Kota/Kabupaten, Provinsi, Waktu Pesanan Selesai
+            </p>
+            <p>3. Simpan file tersebut dalam format file excel (.xls)</p>
+            <p>4. Adapun contoh file dapat dilihat pada file excel di samping</p>
+          </div>
+          <!-- /.card-body -->
+        </div>
+
+            <div class="card card-primary">
+              <div class="card-header bg-danger">
+                <h3 class="card-title">Tambah Data Penjualan (.xls)</h3>
+              </div>
+                <form action="/simpanformpenjualan_excel" method="POST" enctype="multipart/form-data">
+                    <div class="card-body">
+                      <div class="form-group">
+                          <label for="data_excel">Data Penjualan Excel</label>
+                          <input type="file" class="form-control" id="file" name="file" onchange="checkfile(this);" placeholder="Data Penjualan">
+                      </div>
+                      <div class="card-footer">
+                          <button type="submit" class="btn btn-primary">Submit</button>
+                      </div>
+                </form>
+            </div>
+          <!-- /.card -->
+          </div>
+        </div>
+
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+{% include 'footer.html' %}
+
+<!-- jQuery -->
+<script src="{{ url_for('static', filename = 'plugins/jquery/jquery.min.js') }}"></script>
+<!-- Bootstrap 4 -->
+<script src="{{ url_for('static', filename = 'plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<!-- Select2 -->
+<script src="{{ url_for('static', filename = 'plugins/select2/js/select2.full.min.js') }}"></script>
+<!-- Bootstrap4 Duallistbox -->
+<script src="{{ url_for('static', filename = 'plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js') }}"></script>
+<!-- InputMask -->
+<script src="{{ url_for('static', filename = 'plugins/moment/moment.min.js') }}"></script>
+<script src="{{ url_for('static', filename = 'plugins/inputmask/jquery.inputmask.min.js') }}"></script>
+<!-- date-range-picker -->
+<script src="{{ url_for('static', filename = 'plugins/daterangepicker/daterangepicker.js') }}"></script>
+<!-- bootstrap color picker -->
+<script src="{{ url_for('static', filename = 'plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js') }}"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="{{ url_for('static', filename = 'plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
+<!-- Bootstrap Switch -->
+<script src="{{ url_for('static', filename = 'plugins/bootstrap-switch/js/bootstrap-switch.min.js') }}"></script>
+<!-- BS-Stepper -->
+<script src="{{ url_for('static', filename = 'plugins/bs-stepper/js/bs-stepper.min.js') }}"></script>
+<!-- dropzonejs -->
+<script src="{{ url_for('static', filename = 'plugins/dropzone/min/dropzone.min.js') }}"></script>
+
+<!-- Page specific script -->
+<script type="text/javascript" language="javascript">
+  function checkfile(sender) {
+    var validExts = new Array(".csv", ".xls", ".xlsx");
+    var fileExt = sender.value;
+    fileExt = fileExt.substring(fileExt.lastIndexOf('.'));
+    if (validExts.indexOf(fileExt) < 0){
+      alert("Please select a valid format file (csv)");
+      $("#file").val('');
+      return false;
+    }
+    else return true;
+  }
+</script>

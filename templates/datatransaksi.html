@@ -1,0 +1,274 @@
+{% include 'header.html' %}
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'dist/css/adminlte.min.css') }}">
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Data Transaksi</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+              <li class="breadcrumb-item active">Data Transaksi</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+            
+        <div class="card">
+          <!--<div class="card-header">
+            <h3 class="card-title">DataTable with default features</h3>
+          </div>-->
+          <!-- /.card-header -->
+          <div class="card-body">
+            <table id="example1" class="table table-bordered table-striped">
+              <thead>
+              <tr>
+                <th>#</th>
+                <th>Nomor Pesanan</th>
+                <th>Status Pesanan</th>
+                <th>Total Harga</th>
+                <th>Username Pembeli </th>
+                <th>Aksi</th>
+              </tr>
+              </thead>
+              <tbody>
+              {% for dt in data %}
+              <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ dt.0 }}</td>
+                <td>{{ dt.1 }}</td>
+                <td>{{ dt.14 }}</td>
+                <td>{{ dt.17 }}</td>
+                <td>
+                  <a class="btn btn-info btn-sm" data-toggle="modal" data-target="#detailsdatatransaksi{{ dt.0 }}">
+                    <center>
+                      <i class="fas fa-eye"></i>
+                    </center></a>
+                    <div class="modal fade" id="detailsdatatransaksi{{ dt.0 }}" >
+                      <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h4 class="modal-title">Detail Data Penjualan</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          
+                            <div class="modal-body">
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                  <table class="table table-bordered" action="/detailsdatatransaksi/{{dt.0}}" method="POST" >
+                                    <tbody>
+                                      <tr>
+                                        <th>No Pesanan</th>
+                                        <td>{{ dt.0 }}</td>
+                                      </tr>
+                                      <tr>
+                                        <th>Status Pesanan</th>
+                                        <td>{{ dt.1 }}</td>
+                                      </tr>
+                                      <tr>
+                                        <th>Alasan Pembatalan</th>
+                                        <td>{{ dt.2 }}</td>
+                                      </tr>
+                                      <tr>
+                                        <th>Status Pembatalan</th>
+                                        <td>{{ dt.3 }}</td>
+                                      </tr>
+                                      <tr>
+                                        <th>No Resi</th>
+                                        <td>{{ dt.4 }}</td>
+                                      </tr>
+                                      <tr>
+                                        <th>Opsi Pengiriman</th>
+                                        <td>{{ dt.5 }}</td>
+                                      </tr>
+                                      <tr>
+                                        <th>Antar Pengiriman</th>
+                                        <td>{{ dt.6 }}</td>
+                                      </tr>
+                                      <tr>
+                                        <th>Waktu Pengiriman Diatur</th>
+                                        <td>{{ dt.7 }}</td>
+                                      </tr>
+                                      <tr>
+                                        <th>Waktu Pesanan Dibuat</th>
+                                        <td>{{ dt.8 }}</td>
+                                      </tr>
+                                      <tr>
+                                        <th>Waktu Pesanan Dilakukan</th>
+                                        <td>{{ dt.9 }}</td>
+                                      </tr>
+                                      <tr>
+                                        <th>Nama Produk</th>
+                                        <td>{{ dt.10 }}</td>
+                                      </tr>
+                                      <tr>
+                                        <th>Nama Variasi</th>
+                                        <td>{{ dt.11 }}</td>
+                                      </tr>
+                                      <tr>
+                                        <th>Harga</th>
+                                        <td>{{ dt.12 }}</td>
+                                      </tr>
+                                      <tr>
+                                        <th>Jumlah</th>
+                                        <td>{{ dt.13 }}</td>
+                                      </tr>
+                                      <tr>
+                                        <th>Total Harga</th>
+                                        <td>{{ dt.14 }}</td>
+                                      </tr>
+                                      <tr>
+                                        <th>Berat Produk</th>
+                                        <td>{{ dt.15 }}</td>
+                                      </tr>
+                                      <tr>
+                                        <th>Ongkos Kirim</th>
+                                        <td>{{ dt.16 }}</td>
+                                      </tr>
+                                      <tr>
+                                        <th>Username Pembeli</th>
+                                        <td>{{ dt.17 }}</td>
+                                      </tr>
+                                      <tr>
+                                        <th>Nama Penerima</th>
+                                        <td>{{ dt.18 }}</td>
+                                      </tr>
+                                      <tr>
+                                        <th>No Telepon</th>
+                                        <td>{{ dt.19 }}</td>
+                                      </tr>
+                                      <tr>
+                                        <th>Alamat Pengiriman</th>
+                                        <td>{{ dt.20 }}</td>
+                                      </tr>
+                                      <tr>
+                                        <th>Kabupaten/Provinsi</th>
+                                        <td>{{ dt.21 }}</td>
+                                      </tr>
+                                      <tr>
+                                        <th>Waktu Pesanan Selesai</th>
+                                        <td>{{ dt.22 }}</td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                      </div>
+                      <!-- /.modal-dialog -->
+                    </div>
+                    <!-- /.modal -->
+                </td>
+              </tr>
+              {% endfor %}
+              </tbody>
+              <tfoot>
+              <tr>
+                <th>#</th>
+                <th>Nomor Pesanan</th>
+                <th>Status Pesanan</th>
+                <th>Total Harga</th>
+                <th>Username Pembeli </th>
+                <th>Aksi</th>
+              </tr>
+              </tfoot>
+            </table>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+            
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  {% include 'footer.html' %}
+  <!-- DataTables  & Plugins -->
+  <script src="{{ url_for('static', filename = 'plugins/datatables/jquery.dataTables.min.js') }}"></script>
+  <script src="{{ url_for('static', filename = 'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+  <script src="{{ url_for('static', filename = 'plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+  <script src="{{ url_for('static', filename = 'plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+  <script src="{{ url_for('static', filename = 'plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+  <script src="{{ url_for('static', filename = 'plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+  <script src="{{ url_for('static', filename = 'plugins/jszip/jszip.min.js') }}"></script>
+  <script src="{{ url_for('static', filename = 'plugins/pdfmake/pdfmake.min.js') }}"></script>
+  <script src="{{ url_for('static', filename = 'plugins/pdfmake/vfs_fonts.js') }}"></script>
+  <script src="{{ url_for('static', filename = 'plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+  <script src="{{ url_for('static', filename = 'plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+  <script src="{{ url_for('static', filename = 'plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+  
+  <!-- Page specific script -->
+  <script>
+    $(function () {
+      $("#example1").DataTable({
+        "responsive": true, "lengthChange": false, "autoWidth": false,
+        buttons: [
+            {
+                extend: 'copyHtml5',
+                exportOptions: {
+                  columns: [ 0, 1, 2, 3, 4]
+                }
+            },
+            {
+                extend: 'csvHtml5',
+                exportOptions: {
+                  columns: [ 0, 1, 2, 3, 4]
+                }
+            },
+            {
+                extend: 'excelHtml5',
+                exportOptions: {
+                  columns: [ 0, 1, 2, 3, 4]
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                exportOptions: {
+                    columns: [ 0, 1, 2, 3, 4]
+                }
+            },
+            {
+                extend: 'copyHtml5',
+                exportOptions: {
+                  columns: [ 0, 1, 2, 3, 4]
+                }
+            },
+            'colvis'
+        ]
+      }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+      $('#example2').DataTable({
+        "paging": true,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false,
+        "responsive": true,
+        "scrollX" : true,
+        "scrollY" : true,
+        "deferRender" : true,
+        "serverSide" : true,
+        "fixedHeader": {header: true,}
+      });
+    });
+  </script>

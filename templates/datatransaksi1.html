@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lusuka Craft</title>
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{{ url_for('static', filename = 'plugins/fontawesome-free/css/all.min.css') }}">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'dist/css/adminlte.min.css') }}">
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="/dashboard" class="nav-link">Home</a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="/logout" class="nav-link">Logout</a>
+      </li>
+    </ul>
+
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+        <!-- Seharusnya di sini ada fitur Search -->
+    </ul>
+  </nav>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="#" class="brand-link">
+      <img src="{{ url_for('static', filename = 'dist/img/logo-lusuka.jpg') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <span class="brand-text font-weight-light">Lusuka Craft</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user panel (optional) 
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="info">
+          <a href="#" class="d-block">Alexander Pierce</a>  GANTI SESUAI DENGAN NAMA YANG LOGIN
+        </div>
+      </div>-->
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+
+          <li class="nav-item">
+            <a href="/dashboard" class="nav-link">
+                <i class="nav-icon fas fa-chart-bar"></i>
+                <p>
+                    Dashboard
+                </p>
+            </a>
+          </li>
+          <li class="nav-item {% if menu=='data'%} menu-open {% endif %}">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Data
+                <i class="fas fa-angle-left right"></i>
+                <span class="badge badge-info right"></span> <!-- Perlu Diganti --> 
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/databarang" class="nav-link {% if submenu=='barang'%} active {% endif %}">
+                  <i class="fa fa-archive nav-icon"></i>
+                  <p>Data Barang</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/datapelanggan" class="nav-link {% if submenu=='pelanggan'%} active {% endif %}">
+                  <i class="fa fa-child nav-icon"></i>
+                  <p>Data Pelanggan</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/dataadmin" class="nav-link {% if submenu=='admin'%} active {% endif %}">
+                  <i class="fas fa-user-tie nav-icon"></i>
+                  <p>Data Admin</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item {% if menu=='transaksi'%} menu-open {% endif %}">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-shopping-cart"></i>
+              <p>
+                Transaksi
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/formtransaksi" class="nav-link {% if submenu=='form'%} active {% endif %}">
+                  <i class="fas fa-file-excel nav-icon"></i>
+                  <p>Form Transaksi</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/datatransaksi" class="nav-link {% if submenu=='data'%} active {% endif %}">
+                  <i class="fa fa-shopping-basket nav-icon"></i>
+                  <p>Data Transaksi</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item {% if menu=='hasil'%} menu-open {% endif %}">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-chart-pie"></i>
+              <p>
+                Segmentasi
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/hasillrfmp" class="nav-link {% if submenu=='lrfmp'%} active {% endif %}">
+                  <i class="	fa fa-table nav-icon"></i>
+                  <p>Hasil LRFMP</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/hasilsegmentasi" class="nav-link {% if submenu=='segmen'%} active {% endif %}">
+                  <i class="fa fa-users nav-icon"></i>
+                  <p>Hasil Segementasi</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Data Transaksi</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+              <li class="breadcrumb-item active">Data Transaksi</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+            
+        <div class="card">
+          <!--<div class="card-header">
+            <h3 class="card-title">DataTable with default features</h3>
+          </div>-->
+          <!-- /.card-header -->
+          <div class="card-body">
+            <table id="example1" class="table table-bordered table-striped">
+              <thead>
+              <tr>
+                <th>#</th>
+                <th>Nomor Pesanan</th>
+                <th>Status Pesanan</th>
+                <th>Total Harga</th>
+                <th>Username Pembeli </th>
+                <th>Aksi</th>
+              </tr>
+              </thead>
+              <tbody>
+              {% for dt in data %}
+              <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ dt.0 }}</td>
+                <td>{{ dt.1 }}</td>
+                <td>{{ dt.14 }}</td>
+                <td>{{ dt.17 }}</td>
+                <td>
+                  <a class="btn btn-info btn-sm" data-toggle="modal" data-target="#detailsdatatransaksi{{ dt.0 }}">
+                    <i class="fas fa-eye"></i></a>
+                    <div class="modal fade" id="detailsdatatransaksi{{ dt.0 }}" >
+                      <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h4 class="modal-title">Detail Data Penjualan</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          
+                            <div class="modal-body">
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                  <table class="table table-bordered" action="/detailsdatatransaksi/{{dt.0}}" method="POST" >
+                                    <tbody>
+                                      <tr>
+                                        <th>No Pesanan</th>
+                                        <td>{{ dt.0 }}</td>
+                                      </tr>
+                                      <tr>
+                                        <th>Status Pesanan</th>
+                                        <td>{{ dt.1 }}</td>
+                                      </tr>
+                                      <tr>
+                                        <th>Alasan Pembatalan</th>
+                                        <td>{{ dt.2 }}</td>
+                                      </tr>
+                                      <tr>
+                                        <th>Status Pembatalan</th>
+                                        <td>{{ dt.3 }}</td>
+                                      </tr>
+                                      <tr>
+                                        <th>No Resi</th>
+                                        <td>{{ dt.4 }}</td>
+                                      </tr>
+                                      <tr>
+                                        <th>Opsi Pengiriman</th>
+                                        <td>{{ dt.5 }}</td>
+                                      </tr>
+                                      <tr>
+                                        <th>Antar Pengiriman</th>
+                                        <td>{{ dt.6 }}</td>
+                                      </tr>
+                                      <tr>
+                                        <th>Waktu Pengiriman Diatur</th>
+                                        <td>{{ dt.7 }}</td>
+                                      </tr>
+                                      <tr>
+                                        <th>Waktu Pesanan Dibuat</th>
+                                        <td>{{ dt.8 }}</td>
+                                      </tr>
+                                      <tr>
+                                        <th>Waktu Pesanan Dilakukan</th>
+                                        <td>{{ dt.9 }}</td>
+                                      </tr>
+                                      <tr>
+                                        <th>Nama Produk</th>
+                                        <td>{{ dt.10 }}</td>
+                                      </tr>
+                                      <tr>
+                                        <th>Nama Variasi</th>
+                                        <td>{{ dt.11 }}</td>
+                                      </tr>
+                                      <tr>
+                                        <th>Harga</th>
+                                        <td>{{ dt.12 }}</td>
+                                      </tr>
+                                      <tr>
+                                        <th>Jumlah</th>
+                                        <td>{{ dt.13 }}</td>
+                                      </tr>
+                                      <tr>
+                                        <th>Total Harga</th>
+                                        <td>{{ dt.14 }}</td>
+                                      </tr>
+                                      <tr>
+                                        <th>Berat Produk</th>
+                                        <td>{{ dt.15 }}</td>
+                                      </tr>
+                                      <tr>
+                                        <th>Ongkos Kirim</th>
+                                        <td>{{ dt.16 }}</td>
+                                      </tr>
+                                      <tr>
+                                        <th>Username Pembeli</th>
+                                        <td>{{ dt.17 }}</td>
+                                      </tr>
+                                      <tr>
+                                        <th>Nama Penerima</th>
+                                        <td>{{ dt.18 }}</td>
+                                      </tr>
+                                      <tr>
+                                        <th>No Telepon</th>
+                                        <td>{{ dt.19 }}</td>
+                                      </tr>
+                                      <tr>
+                                        <th>Alamat Pengiriman</th>
+                                        <td>{{ dt.20 }}</td>
+                                      </tr>
+                                      <tr>
+                                        <th>Kabupaten/Provinsi</th>
+                                        <td>{{ dt.21 }}</td>
+                                      </tr>
+                                      <tr>
+                                        <th>Waktu Pesanan Selesai</th>
+                                        <td>{{ dt.22 }}</td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                      </div>
+                      <!-- /.modal-dialog -->
+                    </div>
+                    <!-- /.modal -->
+                </td>
+              </tr>
+              {% endfor %}
+              </tbody>
+              <tfoot>
+              <tr>
+                <th>#</th>
+                <th>Nomor Pesanan</th>
+                <th>Status Pesanan</th>
+                <th>Total Harga</th>
+                <th>Username Pembeli </th>
+                <th>Aksi</th>
+
+              </tr>
+              </tfoot>
+            </table>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+            
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+
+
+
+
+
+<!-- /.content-wrapper -->
+<footer class="main-footer">
+    <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
+    All rights reserved.
+    <div class="float-right d-none d-sm-inline-block">
+      <b>Version</b> 3.2.0
+    </div>
+  </footer>
+  
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+  </div>
+  <!-- ./wrapper -->
+  
+  <!-- jQuery -->
+  <script src="{{ url_for('static', filename = 'plugins/jquery/jquery.min.js') }}"></script>
+  <!-- jQuery UI 1.11.4 -->
+  <script src="{{ url_for('static', filename = 'plugins/jquery-ui/jquery-ui.min.js') }}"></script>
+  <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+  <script>
+  $.widget.bridge('uibutton', $.ui.button)
+  </script>
+  <!-- Bootstrap 4 -->
+  <script src="{{ url_for('static', filename = 'plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+  <!-- DataTables  & Plugins -->
+  <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
+  <script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+  <script src="../../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+  <script src="../../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+  <script src="../../plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+  <script src="../../plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+  <script src="../../plugins/jszip/jszip.min.js"></script>
+  <script src="../../plugins/pdfmake/pdfmake.min.js"></script>
+  <script src="../../plugins/pdfmake/vfs_fonts.js"></script>
+  <script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+  <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
+  <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+
+  <!-- Page specific script -->
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+  $(function () {
+    $.validator.setDefaults({
+      submitHandler: function () {
+        alert( "Form successful submitted!" );
+      }
+    });
+    $('#quickForm').validate({
+      rules: {
+        email: {
+          required: true,
+          email: true,
+        },
+        password: {
+          required: true,
+          minlength: 5
+        },
+      },
+      messages: {
+        email: {
+          required: "Please enter a email address",
+          email: "Please enter a valid email address"
+        },
+        password: {
+          required: "Please provide a password",
+          minlength: "Your password must be at least 5 characters long"
+        },
+        
+      },
+      errorElement: 'span',
+      errorPlacement: function (error, element) {
+        error.addClass('invalid-feedback');
+        element.closest('.form-group').append(error);
+      },
+      highlight: function (element, errorClass, validClass) {
+        $(element).addClass('is-invalid');
+      },
+      unhighlight: function (element, errorClass, validClass) {
+        $(element).removeClass('is-invalid');
+      }
+    });
+  });
+</script>
+  </body>
+  </html>

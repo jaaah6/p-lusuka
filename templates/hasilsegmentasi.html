@@ -1,0 +1,301 @@
+{% include 'header.html' %}
+
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'dist/css/adminlte.min.css') }}">
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Hasil Segmentasi</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Dashboard Utama</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+
+        <div class="card-body">
+          <a href="/updatecluster" method="POST" class="btn btn-danger" value="Update Cluster" name="updatecluster">Update Cluster</a>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card card-danger">
+              <div class="card-header">
+                <h5 class="card-title">Proporsi Hasil Segmentasi</h5>
+
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <canvas id="barChart" style="min-height: 400px; height: 400px; max-height: 400px; max-width: 100%;"></canvas>
+              </div>
+              </div>
+              <!-- /.card-footer -->
+            </div>
+            <!-- /.card -->
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card card-danger">
+            <div class="card-header">
+              <h5 class="card-title">Perbandingan Nilai Tiap Cluster</h5>
+
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+              
+              <table id="centroid" class="table">
+                <thead>
+                <tr>
+                  <th><center>Cluster</center></th>
+                  <th><center>Length</center></th>
+                  <th><center>Recency</center></th>
+                  <th><center>Frequency</center></th>
+                  <th><center>Monetary</center></th>
+                  <th><center>Periodicity</center></th>
+                  <th><center>Profile</center></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td><center>0</center></td>
+                  <td><center>Tinggi</center></td>
+                  <td><center>Tinggi</center></td>
+                  <td><center>Tinggi</center></td>
+                  <td><center>Tinggi</center></td>
+                  <td><center>Tinggi</center></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><center>1</center></td>
+                  <td><center>Rendah</center>
+                  </td>
+                  <td><center>Rendah</center></td>
+                  <td><center>Rendah</center></td>
+                  <td><center>Sedang</center></td>
+                  <td><center>Sedang</center></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><center>2</center></td>
+                  <td><center>Sedang</center></td>
+                  <td><center>Sedang</center></td>
+                  <td><center>Sedang</center></td>
+                  <td><center>Rendah</center></td>
+                  <td><center>Rendah</center></td>
+                  <td></td>
+                </tr>
+                </tbody>
+              </table>
+
+            </div>
+            </div>
+            <!-- /.card-footer -->
+          </div>
+          <!-- /.card -->
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card card-danger">
+          <div class="card-header">
+            <h5 class="card-title">Proporsi Hasil Segmentasi</h5>
+
+            <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                <i class="fas fa-minus"></i>
+              </button>
+              <button type="button" class="btn btn-tool" data-card-widget="remove">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body">
+            
+            <table id="nilaicentroid" class="table ">
+              <thead>
+              <tr>
+                <th><center>Cluster</center></th>
+                <th><center>Length</center></th>
+                <th><center>Recency</center></th>
+                <th><center>Frequency</center></th>
+                <th><center>Monetary</center></th>
+                <th><center>Periodicity</center></th>
+              </tr>
+              </thead>
+              <tbody>
+              {% for dt in grouped_km2 %}
+              <tr>
+                <td><center>{{ dt.0 }}</center></td>
+                <td><center>{{ dt.1 }}</center></td>
+                <td><center>{{ dt.2 }}</center></td>
+                <td><center>{{ dt.3 }}</center></td>
+                <td><center>{{ dt.4 }}</center></td>
+                <td><center>{{ dt.5 }}</center></td>
+              </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+
+          </div>
+          </div>
+          <!-- /.card-footer -->
+        </div>
+        <!-- /.card -->
+  </div>
+
+          <div class="card-body">
+            <table id="example1" class="table table-bordered table-striped">
+              <thead>
+              <tr>
+                <th>#</th>
+                <th>Pelanggan</th>
+                <th>Length</th>
+                <th>Recency</th>
+                <th>Frequency</th>
+                <th>Monetary</th>
+                <th>Periodicity</th>
+                <th>Cluster</th>
+              </tr>
+              </thead>
+              <tbody>
+              {% for dt in clustered %}
+              <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ dt.0 }}</td>
+                <td>{{ dt.1 }}</td>
+                <td>{{ dt.2 }}</td>
+                <td>{{ dt.3 }}</td>
+                <td>{{ dt.4 }}</td>
+                <td>{{ dt.5 }}</td>
+                <td>{{ dt.6 }}</td>
+              </tr>
+              {% endfor %}
+              </tbody>
+              <tfoot>
+              <tr>
+                <th>#</th>
+                <th>Pelanggan</th>
+                <th>Length</th>
+                <th>Recency</th>
+                <th>Frequency</th>
+                <th>Monetary</th>
+                <th>Periodicity</th>
+                <th>Cluster</th>
+              </tr>
+              </tfoot>
+            </table>
+      
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+{% include 'footer.html' %}
+
+<!-- jQuery -->
+<script src="{{ url_for('static', filename = 'plugins/jquery/jquery.min.js') }}"></script>
+<!-- Bootstrap 4 -->
+<script src="{{ url_for('static', filename = 'plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+<!-- DataTables  & Plugins -->
+<script src="{{ url_for('static', filename = 'plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ url_for('static', filename = 'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ url_for('static', filename = 'plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ url_for('static', filename = 'plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+<script src="{{ url_for('static', filename = 'plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ url_for('static', filename = 'plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+<script src="{{ url_for('static', filename = 'plugins/jszip/jszip.min.js') }}"></script>
+<script src="{{ url_for('static', filename = 'plugins/pdfmake/pdfmake.min.js') }}"></script>
+<script src="{{ url_for('static', filename = 'plugins/pdfmake/vfs_fonts.js') }}"></script>
+<script src="{{ url_for('static', filename = 'plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+<script src="{{ url_for('static', filename = 'plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+<script src="{{ url_for('static', filename = 'plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+
+<!-- Page specific script -->
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>
+
+<!-- ChartJS -->
+<script src="{{ url_for('static', filename = 'plugins/chart.js/Chart.min.js') }}"></script>
+
+<script>
+  $( function () {
+  var data = [{
+    data: {{ data_cluster }},
+    backgroundColor: ['#8c2f39', '#b23a48', '#fcb9b2','#2e4052','#611c35','#6f233f','#a0445d','#cb5c64'], 
+    borderColor : "#fff"
+  }];
+  var options = {
+      tooltips: { 
+        enabled: true 
+      },
+      legend: {
+        display: false
+      }
+    };
+    var ctx = document.getElementById("barChart").getContext('2d');
+    var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['0','1','2'], 
+        datasets: data
+      },
+      options: options
+    });
+  });
+</script>

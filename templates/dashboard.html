@@ -1,0 +1,392 @@
+{% include 'header.html' %}
+<script rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js@3.0.0/dist/chart.min.js"></script>
+<script rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="mb-1">Dashboard</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item active">Transaksi</li>
+              <li class="breadcrumb-item active"><a href="/dashboardpelanggan">Pelanggan</a></li>
+              <li class="breadcrumb-item active"><a href="/dashboardproduk">Produk</a></li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    
+    
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        
+
+        <!-- Info boxes -->
+        <div class="row">
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box">
+              <span class="info-box-icon bg-danger elevation-1"><i class="	fas fa-donate"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Total Pendapatan</span>
+                <span class="info-box-number">
+                  {{data1}}
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+              <span class="info-box-icon bg-danger elevation-1"><i class="fa fa-shopping-basket"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Total Transaksi</span>
+                <span class="info-box-number">{{data2}}</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+
+          <!-- fix for small devices only -->
+          <div class="clearfix hidden-md-up"></div>
+
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+              <span class="info-box-icon bg-danger elevation-1"><i class="fa fa-users"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Total Pelanggan</span>
+                <span class="info-box-number">{{data3}}</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+              <span class="info-box-icon bg-danger elevation-1"><i class="fa fa-tags"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Total Produk</span>
+                <span class="info-box-number">{{data4}}</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+
+        
+        <div class="row">
+          <div class="col-md-6">
+          
+          <!-- Line Chart -->
+          <div class="card card-danger">
+            <div class="card-header">
+              <h3 class="card-title">Grafik Penjualan 6 Bulan Terakhir</h3>
+
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="chart">
+                <canvas id="lineChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+              </div>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+
+            <!-- BAR CHART -->
+            <div class="card card-danger">
+              <div class="card-header">
+                <h3 class="card-title">Grafik Total Produk Terjual 6 Bulan Terakhir</h3>
+
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+
+            <!-- BAR CHART -->
+            <div class="card card-danger">
+              <div class="card-header">
+                <h3 class="card-title">Grafik Total Pesanan Berdasarkan Status Pesanan</h3>
+
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <canvas id="pieChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+
+          </div>
+          <!-- /.col (LEFT) -->
+          <div class="col-md-6">
+            <!-- LINE CHART -->
+            <div class="card card-danger">
+              <div class="card-header">
+                <h3 class="card-title">Top Ekspedisi</h3>
+
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <table id="topekspedisi" class="table ">
+                  <thead>
+                  <tr>
+                    <th>No</th>
+                    <th>Nama Ekspedisi</th>
+                    <th><center>Total Pengiriman</center></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {% for dt in data8 %}
+                  <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ dt.0 }}</td>
+                    <td><center>{{ dt.1 }} x</center></td>
+                  </tr>
+                  {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+
+
+            <div class="card card-danger">
+              <div class="card-header">
+                <h3 class="card-title">TOP 5 Pelanggan Berdasarkan Total Frekuensi Pembelian</h3>
+
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                  <table id="toppelanggan" class="table ">
+                    <thead>
+                    <tr>
+                      <th>No</th>
+                      <th>Nama Pelanggan</th>
+                      <th><center>Total Pembelian</center></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for dt in data7 %}
+                    <tr>
+                      <td>{{ loop.index }}</td>
+                      <td>{{ dt.0 }}</td>
+                      <td><center>{{ dt.1 }} x</center></td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+
+            <div class="card card-danger">
+              <div class="card-header">
+                <h3 class="card-title">Top 5 Pelanggan Berdasarkan Pengeluaran Terbanyak</h3>
+
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+
+                  <table id="toppengeluaran" class="table ">
+                    <thead>
+                    <tr>
+                      <th>No</th>
+                      <th>Nama Pelanggan</th>
+                      <th>Total Pengeluaran</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for dt in data6 %}
+                    <tr>
+                      <td>{{ loop.index }}</td>
+                      <td>{{ dt.0 }}</td>
+                      <td>{{ dt.1 }}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+
+          </div>
+          <!-- /.col (RIGHT) -->
+        </div>
+        <!-- /.row -->
+        <!-- /.row -->
+
+        
+
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+
+{% include 'footer.html' %}
+<!-- jQuery -->
+<script src="{{ url_for('static', filename = 'plugins/jquery/jquery.min.js') }}"></script>
+<!-- Bootstrap 4 -->
+<script src="{{ url_for('static', filename = 'plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<!-- ChartJS -->
+<script src="{{ url_for('static', filename = 'plugins/chart.js/Chart.min.js') }}"></script>
+
+<script>
+  $( function () {
+  var data = [{
+    data: {{ data10 }},
+    backgroundColor: ['#2e4052', '#e03444','#611c35','#6f233f','#a0445d','#cb5c64'], 
+    borderColor : "#fff"
+  }];
+  var options = {
+      tooltips: { 
+        enabled: true 
+      },
+      plugins: { 
+        datalabels: {
+          formatter: (value, ctx) => { 
+            let sum = ctx.dataset._meta[0].total; 
+            let percentage = (value * 100 / sum).toFixed(2) + "%"; 
+            return percentage;
+          },
+          color: 'rgba(0, 0, 0, 1)',
+        }
+      }
+    };
+    var ctx = document.getElementById("pieChart").getContext('2d');
+    var myChart = new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: ['Batal', 'Selesai'], 
+        datasets: data
+      },
+      options: options
+    });
+  });
+</script>
+
+<script>
+$( function () {
+  var data = [{
+    data: {{ data5 }},
+    borderColor : '#e03444',
+    backgroundColor : 'transparent'
+  }];
+  var options = {
+      tooltips: { 
+        enabled: true 
+      },
+      legend: {
+        display: false
+      }
+    };
+    var ctx = document.getElementById("lineChart").getContext('2d');
+    var myChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Juli','Agustus','September', 'Oktober', 'November', 'Desember'], 
+        datasets: data
+      },
+      options: options
+    });
+  });
+</script>
+
+<script>
+
+$( function () {
+  var data = [{
+    data: {{ data9 }},
+    backgroundColor : '#e03444',
+    borderColor : 'transparent'
+  }];
+  var options = {
+      tooltips: { 
+        enabled: true 
+      },
+      legend: {
+        display: false
+      }
+    };
+    var ctx = document.getElementById("barChart").getContext('2d');
+    var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Juli','Agustus','September', 'Oktober', 'November', 'Desember'], 
+        datasets: data
+      },
+      options: options
+    });
+  });
+
+</script>

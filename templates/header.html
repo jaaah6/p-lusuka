@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lusuka Craft</title>
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{{ url_for('static', filename = 'plugins/fontawesome-free/css/all.min.css') }}">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Tempusdominus Bootstrap 4 -->
+  <link rel="stylesheet" href="{{ url_for('static', filename = 'plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
+  <!-- iCheck -->
+  <link rel="stylesheet" href="{{ url_for('static', filename = 'plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
+  <!-- JQVMap -->
+  <link rel="stylesheet" href="{{ url_for('static', filename = 'plugins/jqvmap/jqvmap.min.css') }}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{{ url_for('static', filename = 'dist/css/adminlte.min.css') }}">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="{{ url_for('static', filename = 'plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
+  <!-- Daterange picker -->
+  <link rel="stylesheet" href="{{ url_for('static', filename = 'plugins/daterangepicker/daterangepicker.css') }}">
+  <!-- summernote -->
+  <link rel="stylesheet" href="{{ url_for('static', filename = 'plugins/summernote/summernote-bs4.min.css') }}">
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="/dashboard" class="nav-link">Home</a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="/logout" class="nav-link">Logout</a>
+      </li>
+    </ul>
+
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+        <!-- Seharusnya di sini ada fitur Search -->
+    </ul>
+  </nav>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="#" class="brand-link">
+      <img src="{{ url_for('static', filename = 'dist/img/logo-lusuka.jpg') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <span class="brand-text font-weight-light">Lusuka Craft</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user panel (optional) 
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="info">
+          <a href="#" class="d-block">Alexander Pierce</a>  GANTI SESUAI DENGAN NAMA YANG LOGIN
+        </div>
+      </div>-->
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+
+          <li class="nav-item">
+            <a href="/dashboard" class="nav-link">
+                <i class="nav-icon fas fa-chart-bar"></i>
+                <p>
+                    Dashboard
+                </p>
+            </a>
+          </li>
+          <li class="nav-item {% if menu=='data'%} menu-open {% endif %}">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Data
+                <i class="fas fa-angle-left right"></i>
+                <span class="badge badge-info right"></span> <!-- Perlu Diganti --> 
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/databarang" class="nav-link {% if submenu=='barang'%} active {% endif %}">
+                  <i class="fa fa-archive nav-icon"></i>
+                  <p>Data Barang</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/datapelanggan" class="nav-link {% if submenu=='pelanggan'%} active {% endif %}">
+                  <i class="fa fa-child nav-icon"></i>
+                  <p>Data Pelanggan</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/dataadmin" class="nav-link {% if submenu=='admin'%} active {% endif %}">
+                  <i class="fas fa-user-tie nav-icon"></i>
+                  <p>Data Admin</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item {% if menu=='transaksi'%} menu-open {% endif %}">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-shopping-cart"></i>
+              <p>
+                Transaksi
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/formtransaksi" class="nav-link {% if submenu=='form'%} active {% endif %}">
+                  <i class="fas fa-file-excel nav-icon"></i>
+                  <p>Form Transaksi</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/datatransaksi" class="nav-link {% if submenu=='data'%} active {% endif %}">
+                  <i class="fa fa-shopping-basket nav-icon"></i>
+                  <p>Data Transaksi</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item {% if menu=='hasil'%} menu-open {% endif %}">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-chart-pie"></i>
+              <p>
+                Segmentasi
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/hasillrfmp" class="nav-link {% if submenu=='lrfmp'%} active {% endif %}">
+                  <i class="	fa fa-table nav-icon"></i>
+                  <p>Hasil LRFMP</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/hasilsegmentasi" class="nav-link {% if submenu=='segmen'%} active {% endif %}">
+                  <i class="fa fa-users nav-icon"></i>
+                  <p>Hasil Segmentasi</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
